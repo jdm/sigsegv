@@ -1,9 +1,10 @@
 #![feature(core_intrinsics)]
 
 extern crate backtrace;
-extern crate simple_signal;
+#[macro_use]
+extern crate sig;
 use backtrace::Backtrace;
-use simple_signal::{Signals, Signal};
+use sig::ffi::Sig;
 use std::intrinsics::abort;
 use std::ptr;
 
@@ -14,11 +15,13 @@ fn foo() {
     println!("hey there");
 }
 
+fn handler(sig: i32) {
+    println!("Backtrace\n{:?}", Backtrace::new());
+    unsafe { abort(); }
+}
+
 fn main() {
-    Signals::set_handler(&[Signal::Segv], move |_signals| {
-        println!("Backtrace\n{:?}", Backtrace::new());
-        unsafe { abort(); }
-    });
+    signal!(Sig::SEGV, handler);
     println!("hi");
     foo();
     println!("bye");

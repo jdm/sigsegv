@@ -9,4 +9,4 @@ path = "src/lib.rs"
 
 [dependencies]
 backtrace = "0.2.1"
-simple-signal = {version = "1.0.5", features = ["nightly"]}
+sig = "0.1"
