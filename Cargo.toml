@@ -1,0 +1,12 @@
+[package]
+name = "sigsegv"
+version = "0.1.0"
+authors = ["Josh Matthews <josh@joshmatthews.net>"]
+
+[[bin]]
+name = "sigsegv"
+path = "src/lib.rs"
+
+[dependencies]
+backtrace = "0.2.1"
+simple-signal = {version = "1.0.5", features = ["nightly"]}
